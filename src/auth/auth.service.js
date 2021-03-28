@@ -6,7 +6,7 @@ import config from "../config.js";
 export default class AuthService {
   static async signup({ email, password }) {
     const existingUser = await User.findOne({ email }).exec();
-    if (existingUser) throw new EvalError("Email already in use");
+    if (existingUser) throw new AuthError("Email already in use", 409);
 
     const user = new User({ email, password });
     await user.save();
